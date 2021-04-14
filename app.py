@@ -26,8 +26,8 @@ def index():
     # and a table view of current trips in the 'trips' variable.
     #return "Hello World"
 
-@app.route('/trip/<int:id>',methods=['POST','GET']) 
-def trip_details(id):
+@app.route('/trip',methods=['POST','GET']) 
+def trip_details():
     return render_template("trip.html")
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
