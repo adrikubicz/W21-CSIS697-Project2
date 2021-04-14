@@ -1,24 +1,72 @@
 {% extends "base.html" %}
+
 {% block title %}
 Modify Trip
 {% endblock %}
+
+{% block style %}
+<style>
+    table {
+        border-collapse: collapse;
+        border:1px solid #000;
+    }
+
+    table td {
+        border-left: 1px solid #56cc9d;
+        border-right: 1px solid #56cc9d;
+    }
+    table th {
+        border-left: 1px solid #56cc9d;
+        border-right: 1px solid #56cc9d;
+    }
+    table tr {
+        border-top: 1px solid #56cc9d;
+        border-bottom: 1px solid #56cc9d;
+    }
+
+</style>
+{% endblock %}
+
 {% block body %}
-<table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Type</th>
-        <th scope="col">Column heading</th>
-        <th scope="col">Column heading</th>
-        <th scope="col">Column heading</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Default</th>
-        <td>Column content</td>
-        <td>Column content</td>
-        <td>Column content</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="card border-primary mb-3">
+    <div class="card-body">
+        <h4 class="card-title">My Current Stops</h4>
+        <table class="table table-hover, center">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Stop #</th>
+                    <th scope="col">Origin</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Distance (miles)</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td style="position: relative;transform: translateY(10%);">
+                        {{row["id"]}}
+                    </td>
+                    <td style="position: relative;transform: translateY(10%);">
+                        {{row["origin"]}}
+                    </td>
+                    <td style="position: relative;transform: translateY(10%);">
+                        {{row["end"]}}
+                    </td>
+                    <td style="position: relative;transform: translateY(10%);">
+                        {{row["distance"]}}
+                    </td>
+                    <td style="position: relative;transform: translateY(10%);">
+                        {{row["time"]}}
+                    </td>
+                    <td style="text-align: center;">
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

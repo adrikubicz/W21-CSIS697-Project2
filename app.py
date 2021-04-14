@@ -28,7 +28,9 @@ def index():
 
 @app.route('/trip',methods=['POST','GET']) 
 def trip_details():
-    return render_template("trip.html")
+    data = []
+    data.append({"id":1, "origin":"winsconsin","end":"michigan","distance":3,"time":"4 seconds"})
+    return render_template("trip.html", data = data)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
     # and a table view of current stops in this specific trip.
