@@ -21,13 +21,14 @@ def trip_delete(id):
 
 @app.route('/',methods=['POST','GET']) 
 def index():
-    
+    return render_template("index.html")
     #this should return a page with a title , followed by a form to add a new trip 
     # and a table view of current trips in the 'trips' variable.
-    return "Hello World"
+    #return "Hello World"
 
 @app.route('/trip/<int:id>',methods=['POST','GET']) 
 def trip_details(id):
+    return render_template("trip.html")
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
     # and a table view of current stops in this specific trip.
