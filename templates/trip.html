@@ -61,7 +61,9 @@ Modify Trip
                         {{row["time"]}}
                     </td>
                     <td style="text-align: center;">
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                        <form onsubmit="{{url_for("delete_stop")}}">
+                            <a href="{{url_for("delete_stop", tripId=6, stopId=row["id"])}}" class="btn btn-outline-danger">Delete</a>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
