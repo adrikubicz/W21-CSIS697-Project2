@@ -10,7 +10,6 @@ trips = pickle.load(infile)
 for t in trips:
     print(t)
 
-
 app = Flask(__name__) 
 app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
 
@@ -21,10 +20,12 @@ def trip_delete(id):
 
 @app.route('/',methods=['POST','GET']) 
 def index():
-    return render_template("index.html")
+    data = []
+    for t in trips:
+        data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
+    return render_template("index.html", data = data)
     #this should return a page with a title , followed by a form to add a new trip 
     # and a table view of current trips in the 'trips' variable.
-    #return "Hello World"
 
 @app.route('/trip',methods=['POST','GET']) 
 def trip_details():
@@ -39,7 +40,6 @@ def trip_details():
     #Note if you are using my tempalte, the url for the image is already retirved for you an can
     #be found inside the details property.
     return "Hello World"
-
 
 if __name__ == '__main__':
     app.run(debug=True)

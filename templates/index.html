@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}
-Index booiiii
+Home
 {% endblock %}
+
 {% block body %}
 <div class="card border-secondary mb-3" style="max-width: 50rem;">
     <div class="card-body">
@@ -20,37 +21,35 @@ Index booiiii
 <br>
 <div class="card border-primary mb-3">
     <div class="card-body">
-        <h4 class="card-title">My Current Trips</h4>
+        <h4 class="card-title, text-primary">My Current Trips</h4>
         <table class="table table-hover, center">
             <thead>
                 <tr class="table-primary">
                     <th scope="col">Trip ID</th>
                     <th scope="col">Source</th>
                     <th scope="col">Destination</th>
-                    <th scope="col">Manage</th>
+                    <th scope="col" style="max-width: 7rem;">Manage</th>
                 </tr>
             </thead>
             <tbody>
+                {% for row in data %}
                 <tr>
-                    <td>Column Content</td>
-                    <td>Column Content</td>
-                    <td>Column Content</td>
-                    <td>
+                    <td style="max-width: 5rem;">
+                        {{row["id"]}}
+                    </td>
+                    <td style="max-width: 10rem;">
+                        {{row["origin"]}}
+                    </td>
+                    <td style="max-width: 10rem;">
+                        {{row["end"]}}
+                    </td>
+                    <td style="max-width: 7rem;">
                         <button type="button" class="btn btn-primary">View</button>
                         <button type="button" class="btn btn-primary disabled">Edit</button>
                         <button type="button" class="btn btn-outline-primary">Delete</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>Column Content</td>
-                    <td>Column Content</td>
-                    <td>Column Content</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">View</button>
-                        <button type="button" class="btn btn-primary disabled">Edit</button>
-                        <button type="button" class="btn btn-outline-primary">Delete</button>
-                    </td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
