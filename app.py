@@ -1,12 +1,15 @@
 from flask import Flask,render_template,redirect #from flask package import Flask class
 from flask_wtf import FlaskForm
-from wtforms import StringField,SubmitField
+from wtforms import StringField,SubmitField,HiddenField
 import pickle
 from models.Trip import Trip
 from flask.helpers import url_for
 
 infile = open('./data/trips_new.dat','rb')
 trips = pickle.load(infile)
+
+print(trips[0].get_summary())
+#print(trips[0])
 for t in trips:
     print(t)
 
@@ -35,9 +38,10 @@ def index():
 
 @app.route('/trip',methods=['POST','GET']) 
 def trip_details():
-    data = []
-    data.append({"id":1, "origin":"winsconsin","end":"michigan","distance":3,"time":"4 seconds"})
-    return render_template("trip.html", data = data)
+    tripId = 6
+    
+    
+    return render_template("trip.html", data = test, tripId = tripId)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
     # and a table view of current stops in this specific trip.
@@ -45,7 +49,16 @@ def trip_details():
     #and the weather at the final destination followed by a weather icon retireved from the weatherstack API
     #Note if you are using my tempalte, the url for the image is already retirved for you an can
     #be found inside the details property.
-    return "Hello World"
+
+
+
+@app.route('/delete_stop/<int:tripId>/<int:stopId>',methods=['POST','GET']) 
+def delete_stop(tripId, stopId):
+    trip = [i for i in Trips if i["id"] == tripId]
+    trip.stops = [data.stops[i] for i in range(len(data.stops)) if i != stopId]
+    data = trip.summary()
+    print(data)
+    return None#render_template("trip.html", data = data, tripId = tripId)
 
 if __name__ == '__main__':
     app.run(debug=True)
