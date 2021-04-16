@@ -23,40 +23,67 @@ Modify Trip
         border-top: 1px solid #56cc9d;
         border-bottom: 1px solid #56cc9d;
     }
+    p {
+        padding:10px;
+        margin:0px;
+        border-collapse: collapse;
+        border-bottom:1px solid #56cc9d;
+        border-left:1px solid #56cc9d;
+        border-right:1px solid #56cc9d;
+    }
 
 </style>
 {% endblock %}
 
 {% block body %}
-<div class="card border-primary mb-3">
-    <div class="card-body">
-        <h4 class="card-title">My Current Stops</h4>
-        <table class="table table-hover, center">
-            <thead>
-                <tr class="table-primary">
-                    <th scope="col">Stop #</th>
-                    <th scope="col">Origin</th>
-                    <th scope="col">End</th>
-                    <th scope="col">Distance (miles)</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in data %}
-                <tr>
-                    <td>{{row["id"]}}</td>
-                    <td>{{row["start"]}}</td>
-                    <td>{{row["end"]}}</td>
-                    <td>{{row["dist"]}}</td>
-                    <td>{{row["time"]}}</td>
-                    <td style="text-align: center;">
-                        <a href="{{url_for("delete_stop", tripId=tripId, stopId=row["id"])}}" class="btn btn-outline-danger">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="row">
+    <div class="col-lg-4 text-center">
+        <img src="{{data["weatherIcon"]}}" alt="The weather" width="200" height="200">
+        <div class="card border-primary mb-3" style="margin-top: 10px;">
+            <div class="card-body">
+                <h4 class="card-title">Trip Summary</h4>
+                <p style="text-align: left; border-top: 1px solid #56cc9d;">  Source: {{data["src"]}}</p>
+                <p style="text-align: left;">  Destination: {{data["dst"]}}</p>
+                <p style="text-align: left;">  Total Distance: {{data["totalDist"]}} miles</p>
+                <p style="text-align: left;">  Total Time: {{data["totalTime"]}}</p>
+                <p style="text-align: left;">  Weather at Destination: {{data["dstWeather"]}} degrees Fahrenheit</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card border-primary mb-3">
+            <div class="card-body">
+                <h4 class="card-title">My Current Stops</h4>
+                <table class="table table-hover, center">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col">Stop #</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">End</th>
+                            <th scope="col">Distance (miles)</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data["stops"] %}
+                        <tr>
+                            <td>{{row["id"]}}</td>
+                            <td>{{row["start"]}}</td>
+                            <td>{{row["end"]}}</td>
+                            <td>{{row["dist"]}}</td>
+                            <td>{{row["time"]}}</td>
+                            <td style="text-align: center;">
+                                <a href="{{url_for("delete_stop", tripId=tripId, stopId=row["id"])}}" class="btn btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
 {% endblock %}

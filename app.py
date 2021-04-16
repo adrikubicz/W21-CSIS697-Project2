@@ -38,7 +38,7 @@ def index():
 @app.route('/trip_details/<int:tripId>',methods=['POST','GET']) 
 def trip_details(tripId):
     trip = [i for i in trips if i.id == tripId][0]
-    data = trip.get_summary()["stops"]
+    data = trip.get_summary()
     return render_template("trip_details.html", data = data, tripId = tripId)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
