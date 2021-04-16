@@ -8,10 +8,8 @@ from flask.helpers import url_for
 infile = open('./data/trips_new.dat','rb')
 trips = pickle.load(infile)
 
-test = []
-test.append({"id":1, "origin":"winsconsin","end":"michigan","distance":3,"time":"4 seconds"})
-test.append({"id":2, "origin":"michigan","end":"utah","distance":6,"time":"8 seconds"})
-
+print(trips[0].get_summary())
+#print(trips[0])
 for t in trips:
     print(t)
 
@@ -50,11 +48,11 @@ def trip_details():
 
 @app.route('/delete_stop/<int:tripId>/<int:stopId>',methods=['POST','GET']) 
 def delete_stop(tripId, stopId):
-    global test
-    test = [i for i in test if i["id"] != stopId]
-    for i in range(len(test)):
-        test[i]["id"] = i
-    return render_template("trip.html", data = test, tripId = tripId)
+    trip = [i for i in Trips if i["id"] == tripId]
+    trip.stops = [data.stops[i] for i in range(len(data.stops)) if i != stopId]
+    data = trip.summary()
+    print(data)
+    return None#render_template("trip.html", data = data, tripId = tripId)
 
 if __name__ == '__main__':
     app.run(debug=True)
