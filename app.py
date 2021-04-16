@@ -15,16 +15,10 @@ app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
 
 @app.route('/trip_delete/<int:id>')
 def trip_delete(id):
-    data = []
-    for t in trips:
-        if t.id == id:
-            trips.remove(t)
-        else:
-            data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
     #this function should delete a trip and redirect back to the home page
-    return render_template("index.html", data = data)
+    return "Hello World"
 
-@app.route('/',methods=['POST','GET'])
+@app.route('/',methods=['POST','GET']) 
 def index():
     data = []
     for t in trips:
