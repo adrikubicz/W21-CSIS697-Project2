@@ -138,7 +138,6 @@ class Trip:
     def _getWeather(loc):
         url=f'{constants.weatherStack_base}?access_key={constants.weatherStack_key}&query={loc.lat},{loc.lon}&units=f'
         res = requests.get(url)
-        
         res_json = res.json()
         return (res_json['current']['temperature'],res_json['current']['weather_icons'][0])
 
