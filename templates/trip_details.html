@@ -48,10 +48,10 @@ Modify Trip
                     <td>{{row["id"]}}</td>
                     <td>{{row["start"]}}</td>
                     <td>{{row["end"]}}</td>
-                    <td>{{row["distance"]}}</td>
+                    <td>{{row["dist"]}}</td>
                     <td>{{row["time"]}}</td>
                     <td style="text-align: center;">
-                        <a href="{{url_for("delete_stop", tripId=6, stopId=row["id"])}}" class="btn btn-outline-danger">Delete</a>
+                        <a href="{{url_for("delete_stop", tripId=tripId, stopId=row["id"])}}" class="btn btn-outline-danger">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

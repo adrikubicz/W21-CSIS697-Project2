@@ -44,9 +44,9 @@ Home
                         {{row["end"]}}
                     </td>
                     <td style="max-width: 7rem;">
-                        <a type="button" class="btn btn-primary" href={{url_for('trip_details, id = row['id']')}}>View</a>
-                        <a type="button" class="btn btn-primary disabled"  href={{url_for('trip_details, id = row['id']')}}>Edit</a>
-                        <a type="button" class="btn btn-outline-primary" href={{url_for('trip_delete', id = row['id'])}}>Delete</a>
+                        <a type="button" class="btn btn-primary" href="{{url_for('trip_details', tripId = row['id'])}}">View</a>
+                        <a type="button" class="btn btn-primary disabled"  href="{{url_for('trip_details', tripId = row['id'])}}">Edit</a>
+                        <a type="button" class="btn btn-outline-primary" href="{{url_for('trip_delete', id = row['id'])}}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

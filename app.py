@@ -35,11 +35,11 @@ def index():
     #this should return a page with a title , followed by a form to add a new trip 
     # and a table view of current trips in the 'trips' variable.
 
-@app.route('/trip',methods=['POST','GET']) 
-def trip_details():
-    tripId = 6
-    
-    return render_template("trip.html", data = test, tripId = tripId)
+@app.route('/trip_details/<int:tripId>',methods=['POST','GET']) 
+def trip_details(tripId):
+    trip = [i for i in trips if i.id == tripId][0]
+    data = trip.get_summary()["stops"]
+    return render_template("trip_details.html", data = data, tripId = tripId)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
     # and a table view of current stops in this specific trip.
@@ -50,11 +50,9 @@ def trip_details():
 
 @app.route('/delete_stop/<int:tripId>/<int:stopId>',methods=['POST','GET']) 
 def delete_stop(tripId, stopId):
-    trip = [i for i in Trips if i["id"] == tripId]
-    trip.stops = [data.stops[i] for i in range(len(data.stops)) if i != stopId]
-    data = trip.summary()
-    print(data)
-    return None#render_template("trip.html", data = data, tripId = tripId)
+    trip = [i for i in trips if i.id == tripId][0]
+    trip.places = [trip.places[i] for i in range(len(trip.places)) if i != stopId]
+    return redirect(url_for("trip_details",tripId = tripId))
 
 if __name__ == '__main__':
     app.run(debug=True)
