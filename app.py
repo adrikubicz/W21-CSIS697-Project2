@@ -16,13 +16,22 @@ for t in trips:
 app = Flask(__name__) 
 app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
 
+@app.route('/trip_create/<string:tripString>')
+def trip_create(tripString):
+    global trips
+    newTrip = Trip(tripString)
+    trips.append(newTrip)
+
+    #this function should create a trip and redirect back to the home page
+    return redirect(url_for("index"))
+
 @app.route('/trip_delete/<int:id>')
 def trip_delete(id):
     global trips
     trips = [t for t in trips if t.id != id]
-    data = []
-    for t in trips:
-        data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
+    # data = []
+    # for t in trips:
+    #     data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
     #this function should delete a trip and redirect back to the home page
     return redirect(url_for("index"))
 
