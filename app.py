@@ -18,14 +18,13 @@ app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
 
 @app.route('/trip_delete/<int:id>')
 def trip_delete(id):
+    global trips
+    trips = [t for t in trips if t.id != id]
     data = []
     for t in trips:
-        if t.id == id:
-            trips.remove(t)
-        else:
-            data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
+        data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
     #this function should delete a trip and redirect back to the home page
-    return render_template("index.html", data = data)
+    return redirect(url_for("index"))
 
 @app.route('/',methods=['POST','GET'])
 def index():
@@ -40,7 +39,6 @@ def index():
 def trip_details():
     tripId = 6
     
-    
     return render_template("trip.html", data = test, tripId = tripId)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
@@ -49,8 +47,6 @@ def trip_details():
     #and the weather at the final destination followed by a weather icon retireved from the weatherstack API
     #Note if you are using my tempalte, the url for the image is already retirved for you an can
     #be found inside the details property.
-
-
 
 @app.route('/delete_stop/<int:tripId>/<int:stopId>',methods=['POST','GET']) 
 def delete_stop(tripId, stopId):
