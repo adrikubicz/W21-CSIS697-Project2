@@ -1,6 +1,6 @@
 from flask import Flask,render_template,redirect #from flask package import Flask class
 from flask_wtf import FlaskForm
-from wtforms import StringField,SubmitField
+from wtforms import StringField,SubmitField,HiddenField
 import pickle
 from models.Trip import Trip
 from flask.helpers import url_for
@@ -14,7 +14,6 @@ test.append({"id":2, "origin":"michigan","end":"utah","distance":6,"time":"8 sec
 
 for t in trips:
     print(t)
-
 
 app = Flask(__name__) 
 app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
