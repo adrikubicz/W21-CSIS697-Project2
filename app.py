@@ -1,4 +1,4 @@
-from flask import Flask,render_template,redirect #from flask package import Flask class
+from flask import Flask,render_template,redirect,request #from flask package import Flask class
 from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField,HiddenField
 from wtforms.validators import DataRequired
@@ -11,7 +11,7 @@ trips = pickle.load(infile)
 
 
 class addStopForm(FlaskForm):
-    location = StringField('location',[DataRequired()])
+    location = StringField('Add location: ',[DataRequired()])
     submit = SubmitField('Submit')
 
 
@@ -45,12 +45,16 @@ def index():
 
 @app.route('/trip_details/<int:tripId>',methods=['POST','GET']) 
 def trip_details(tripId):
-    if request.method == 'POST':
+
+    form = addStopForm()
+    if request.method == "POST":
+        trips[tripId] = trips[tripId] + form.location.data
+        redirect(url_for("trip_details", tripId=tripId))
         
 
     trip = [i for i in trips if i.id == tripId][0]
     data = trip.get_summary()
-    return render_template("trip_details.html", data = data, tripId = tripId)
+    return render_template("trip_details.html", data = data, tripId = tripId, form = form)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
     # and a table view of current stops in this specific trip.

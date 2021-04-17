@@ -56,10 +56,10 @@ Modify Trip
         <div class="card border-primary mb-3">
             <div class="card-body">
                 <div class="row">
-                    <form onsubmit="{{url_for("trip_details")}}">
-                        <p style="margin-right: 10px;">Add a stop to your trip</p>
-                        <input style="margin-right: 10px;" type="text" size="30">
-                        <button class="btn btn-outline-primary" type="submit">Add Stop</button>
+                    <form method="POST" action="{{url_for("trip_details",tripId=tripId)}}">
+                        {{form.location.label(style="font-size:20px;position: relative;transform: translateY(10%);")}}
+                        {{form.location(style="margin-right: 10px;position: relative;transform: translateY(10%);")}}
+                        {{form.submit(class="btn btn-outline-primary")}}
                     </form>
                 </div>
             </div>
@@ -75,7 +75,7 @@ Modify Trip
                             <th scope="col">End</th>
                             <th scope="col">Distance (miles)</th>
                             <th scope="col">Time</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col">Delete Endpoint</th>
                         </tr>
                     </thead>
                     <tbody>
