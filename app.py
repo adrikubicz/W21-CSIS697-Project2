@@ -6,6 +6,10 @@ import pickle
 from models.Trip import Trip
 from flask.helpers import url_for
 
+class IndexForm(FlaskForm):
+    tripString = StringField(render_kw={"placeholder": "e.g. New York NY, Boston MA"})
+    submit=SubmitField('Submit')
+
 infile = open('./data/trips_new.dat','rb')
 trips = pickle.load(infile)
 
@@ -14,13 +18,6 @@ class addStopForm(FlaskForm):
     location = StringField('Add location: ',[DataRequired()])
     submit = SubmitField('Submit')
 
-
-
-print(trips[0].get_summary())
-#print(trips[0])
-for t in trips:
-    print(t)
-
 app = Flask(__name__) 
 app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
 
@@ -28,18 +25,24 @@ app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
 def trip_delete(id):
     global trips
     trips = [t for t in trips if t.id != id]
-    data = []
-    for t in trips:
-        data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
+
     #this function should delete a trip and redirect back to the home page
     return redirect(url_for("index"))
 
 @app.route('/',methods=['POST','GET'])
 def index():
+    form = IndexForm()
     data = []
+
+    if request.method =='POST':
+        newTrip = Trip(*form.tripString.data.split(','))
+        trips.append(newTrip)
+        return redirect(url_for('index'))
+
     for t in trips:
         data.append({"id": t.id, "origin":t.places[0],"end":t.places[-1]})
-    return render_template("index.html", data = data)
+
+    return render_template("index.html", data = data, form = form)
     #this should return a page with a title , followed by a form to add a new trip 
     # and a table view of current trips in the 'trips' variable.
 

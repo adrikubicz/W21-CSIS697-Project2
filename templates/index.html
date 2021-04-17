@@ -7,14 +7,10 @@ Home
 <div class="card border-secondary mb-3" style="max-width: 50rem;">
     <div class="card-body">
         <h4 class="card-title, text-secondary">Create New Trip</h4>
-        <form>
-            <fieldset>
-                <div class="form-group">
-                    <label class="col-form-label, text-secondary" for="inputDefault">Enter each stop on your trip.</label>
-                    <input type="text" class="form-control" placeholder="e.g. New York NY, Boston MA" id="inputDefault">
-                </div>
-                <button type="submit" class="btn btn-secondary">Submit</button>
-            </fieldset>
+        <form class="form" method="POST" action="/">
+            <label class="col-form-label, text-secondary" for="tripString">Enter each stop on your trip.</label>
+            <br> {{form.tripString (class="form-control")}} <br><br>
+            {{form.submit (class="btn btn-secondary")}}
         </form>
     </div>
 </div>
@@ -44,9 +40,9 @@ Home
                         {{row["end"]}}
                     </td>
                     <td style="max-width: 7rem;">
-                        <a type="button" class="btn btn-primary" href="{{url_for('trip_details', tripId = row['id'])}}">View</a>
-                        <a type="button" class="btn btn-primary disabled"  href="{{url_for('trip_details', tripId = row['id'])}}">Edit</a>
-                        <a type="button" class="btn btn-outline-primary" href="{{url_for('trip_delete', id = row['id'])}}">Delete</a>
+                        <a type="button" class="btn btn-outline-primary" href="{{url_for('trip_details', tripId = row['id'])}}">View</a>
+                        <a type="button" class="btn btn-outline-info"  href="{{url_for('trip_details', tripId = row['id'])}}">Edit</a>
+                        <a type="button" class="btn btn-outline-danger" href="{{url_for('trip_delete', id = row['id'])}}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
