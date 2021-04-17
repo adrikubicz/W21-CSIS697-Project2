@@ -1,12 +1,20 @@
 from flask import Flask,render_template,redirect #from flask package import Flask class
 from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField,HiddenField
+from wtforms.validators import DataRequired
 import pickle
 from models.Trip import Trip
 from flask.helpers import url_for
 
 infile = open('./data/trips_new.dat','rb')
 trips = pickle.load(infile)
+
+
+class addStopForm(FlaskForm):
+    location = StringField('location',[DataRequired()])
+    submit = SubmitField('Submit')
+
+
 
 print(trips[0].get_summary())
 #print(trips[0])
@@ -37,6 +45,9 @@ def index():
 
 @app.route('/trip_details/<int:tripId>',methods=['POST','GET']) 
 def trip_details(tripId):
+    if request.method == 'POST':
+        
+
     trip = [i for i in trips if i.id == tripId][0]
     data = trip.get_summary()
     return render_template("trip_details.html", data = data, tripId = tripId)
