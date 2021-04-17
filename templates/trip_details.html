@@ -23,7 +23,7 @@ Modify Trip
         border-top: 1px solid #56cc9d;
         border-bottom: 1px solid #56cc9d;
     }
-    p {
+    .box {
         padding:10px;
         margin:0px;
         border-collapse: collapse;
@@ -42,19 +42,31 @@ Modify Trip
         <div class="card border-primary mb-3" style="margin-top: 10px;">
             <div class="card-body">
                 <h4 class="card-title">Trip Summary</h4>
-                <p style="text-align: left; border-top: 1px solid #56cc9d;">  Source: {{data["src"]}}</p>
-                <p style="text-align: left;">  Destination: {{data["dst"]}}</p>
-                <p style="text-align: left;">  Total Distance: {{data["totalDist"]}} miles</p>
-                <p style="text-align: left;">  Total Time: {{data["totalTime"]}}</p>
-                <p style="text-align: left;">  Weather at Destination: {{data["dstWeather"]}} degrees Fahrenheit</p>
+                <p class="box" style="text-align: left; border-top: 1px solid #56cc9d;">  Source: {{data["src"]}}</p>
+                <p class="box" style="text-align: left;">  Destination: {{data["dst"]}}</p>
+                <p class="box" style="text-align: left;">  Total Distance: {{data["totalDist"]}} miles</p>
+                <p class="box" style="text-align: left;">  Total Time: {{data["totalTime"]}}</p>
+                <p class="box" style="text-align: left;">  Weather at Destination: {{data["dstWeather"]}} degrees Fahrenheit</p>
             </div>
         </div>
     </div>
 
     <div class="col-lg-8">
+        <h1 class="card-title">Trip Details</h1>
         <div class="card border-primary mb-3">
             <div class="card-body">
-                <h4 class="card-title">My Current Stops</h4>
+                <div class="row">
+                    <form onsubmit="{{url_for("trip_details")}}">
+                        <p style="margin-right: 10px;">Add a stop to your trip</p>
+                        <input style="margin-right: 10px;" type="text" size="30">
+                        <button class="btn btn-outline-primary" type="submit">Add Stop</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card border-primary mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Current Stops</h4>
                 <table class="table table-hover, center">
                     <thead>
                         <tr class="table-primary">
@@ -85,5 +97,4 @@ Modify Trip
         </div>
     </div>
 </div>
-
 {% endblock %}
