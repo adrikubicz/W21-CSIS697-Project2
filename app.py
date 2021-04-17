@@ -13,10 +13,10 @@ class IndexForm(FlaskForm):
 infile = open('./data/trips_new.dat','rb')
 trips = pickle.load(infile)
 
-# print(trips[0].get_summary())
-# print(trips[0])
-# for t in trips:
-#     print(t)
+
+class addStopForm(FlaskForm):
+    location = StringField('Add location: ',[DataRequired()])
+    submit = SubmitField('Submit')
 
 app = Flask(__name__) 
 app.config['SECRET_KEY']='VERYSECRETKEY' #csrf
@@ -48,9 +48,16 @@ def index():
 
 @app.route('/trip_details/<int:tripId>',methods=['POST','GET']) 
 def trip_details(tripId):
+
+    form = addStopForm()
+    if request.method == "POST":
+        trips[tripId] = trips[tripId] + form.location.data
+        redirect(url_for("trip_details", tripId=tripId))
+        
+
     trip = [i for i in trips if i.id == tripId][0]
     data = trip.get_summary()
-    return render_template("trip_details.html", data = data, tripId = tripId)
+    return render_template("trip_details.html", data = data, tripId = tripId, form = form)
     #this should return a page showing details of a trip with the above id.
     # The page should have  a title , followed by a form to add a new stop to the above trip 
     # and a table view of current stops in this specific trip.

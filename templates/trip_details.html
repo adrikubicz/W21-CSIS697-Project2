@@ -23,7 +23,7 @@ Modify Trip
         border-top: 1px solid #56cc9d;
         border-bottom: 1px solid #56cc9d;
     }
-    p {
+    .box {
         padding:10px;
         margin:0px;
         border-collapse: collapse;
@@ -42,19 +42,31 @@ Modify Trip
         <div class="card border-primary mb-3" style="margin-top: 10px;">
             <div class="card-body">
                 <h4 class="card-title">Trip Summary</h4>
-                <p style="text-align: left; border-top: 1px solid #56cc9d;">  Source: {{data["src"]}}</p>
-                <p style="text-align: left;">  Destination: {{data["dst"]}}</p>
-                <p style="text-align: left;">  Total Distance: {{data["totalDist"]}} miles</p>
-                <p style="text-align: left;">  Total Time: {{data["totalTime"]}}</p>
-                <p style="text-align: left;">  Weather at Destination: {{data["dstWeather"]}} degrees Fahrenheit</p>
+                <p class="box" style="text-align: left; border-top: 1px solid #56cc9d;">  Source: {{data["src"]}}</p>
+                <p class="box" style="text-align: left;">  Destination: {{data["dst"]}}</p>
+                <p class="box" style="text-align: left;">  Total Distance: {{data["totalDist"]}} miles</p>
+                <p class="box" style="text-align: left;">  Total Time: {{data["totalTime"]}}</p>
+                <p class="box" style="text-align: left;">  Weather at Destination: {{data["dstWeather"]}} degrees Fahrenheit</p>
             </div>
         </div>
     </div>
 
     <div class="col-lg-8">
+        <h1 class="card-title">Trip Details</h1>
         <div class="card border-primary mb-3">
             <div class="card-body">
-                <h4 class="card-title">My Current Stops</h4>
+                <div class="row">
+                    <form method="POST" action="{{url_for("trip_details",tripId=tripId)}}">
+                        {{form.location.label(style="font-size:20px;position: relative;transform: translateY(10%);")}}
+                        {{form.location(style="margin-right: 10px;position: relative;transform: translateY(10%);")}}
+                        {{form.submit(class="btn btn-outline-primary")}}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card border-primary mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Current Stops</h4>
                 <table class="table table-hover, center">
                     <thead>
                         <tr class="table-primary">
@@ -63,7 +75,7 @@ Modify Trip
                             <th scope="col">End</th>
                             <th scope="col">Distance (miles)</th>
                             <th scope="col">Time</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col">Delete Endpoint</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,5 +97,4 @@ Modify Trip
         </div>
     </div>
 </div>
-
 {% endblock %}
