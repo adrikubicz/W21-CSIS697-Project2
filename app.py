@@ -1,6 +1,7 @@
 # CSIS 697 - Project 2
 # Authors - Weston Smith, Adri Kubicz
 # This application is a server for a web CRUD app that manages trips
+# GitHub - https://github.com/adrikubicz/W21-CSIS697-Project2
 
 from flask import Flask,render_template,redirect,request
 from flask_wtf import FlaskForm
