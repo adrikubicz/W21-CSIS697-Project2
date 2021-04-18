@@ -58,10 +58,11 @@ def index():
 # This page should display each stop for a trip with tripId
 @app.route('/trip_details/<int:tripId>',methods=['POST','GET']) 
 def trip_details(tripId):
+    trip = [i for i in trips if i.id == tripId][0]
     # If the form is filled out, add stop then redirect back to trip details
     form = addStopForm()
     if request.method == "POST":
-        trips[tripId] = trips[tripId] + form.location.data
+        trip = trip + form.location.data
         redirect(url_for("trip_details", tripId=tripId))
         
     trip = [i for i in trips if i.id == tripId][0]
